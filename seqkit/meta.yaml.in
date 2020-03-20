@@ -1,0 +1,26 @@
+
+package:
+  name: seqkit_bsipos
+  version: {{ version }}
+
+source:
+  path: ./
+
+build:
+  number: 0
+  string: {{ environ.get('BUILD_STRING', '') }}
+  skip: False
+
+test:
+  commands:
+    - seqkit version
+
+about:
+  home: https://github.com/bsipos/seqkit
+  summary: Cross-platform and ultrafast toolkit for FASTA/Q file manipulation
+  license: MIT
+
+extra:
+  skip-lints:
+    - should_be_noarch_generic
+    - should_not_be_noarch_source

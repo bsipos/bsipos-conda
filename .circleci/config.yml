@@ -1,0 +1,123 @@
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: continuumio/miniconda3
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/bsipos/bsipos-conda
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            #- v1-dependencies-{{ checksum "conda_base.txt" }}
+            # fallback to using the latest cache if no exact match is found
+            - cache-v2-
+
+      - run:
+          name: install dependencies
+          command: |
+            conda init -q bash
+            source $HOME/.bashrc
+            conda config --add channels bioconda
+            conda config --add channels conda-forge
+            #rm -fr conda_base
+            if [ ! -e ./conda_base ];then conda create -p ./conda_base;fi
+            conda activate ./conda_base
+            conda update -q -y -n base -c defaults conda
+            conda install -y -q anaconda conda-build cmake make gcc_linux-64 gxx_linux-64 \
+            gfortran_linux-64 openssl conda-verify patchelf
+            conda update --all -y -q
+            GO_TAR=go1.14.1.linux-amd64.tar.gz
+            export GOOS="linux" GOARCH="amd64"
+            export GOROOT=`pwd -P`/conda_base/go
+            GO_URL="https://dl.google.com/go/$GO_TAR"
+            if [ ! -e $GOROOT ]; then wget $GO_URL && tar -xzf $GO_TAR -C conda_base ; rm -f go*.tar.gz* ;fi
+            export PATH=`pwd -P`/conda_base/go/bin:$PATH
+            export GOPATH=`pwd -P`/conda_base/go.pkgs
+            export GOOS="linux" GOARCH="amd64"
+            go version
+            go get -u  github.com/shenwei356/seqkit/seqkit
+            go get -u  github.com/shenwei356/csvtk/csvtk
+            echo $(conda list --export ; go version | openssl dgst -sha256 -)  > conda_base/CACHE_KEY1
+            echo `date` >> conda_base/CACHE_KEY1
+
+      - save_cache:
+            paths:
+              - ./conda_base
+            key: cache-v2-{{ checksum "conda_base/CACHE_KEY1" }}
+
+      - run:
+          name: build seqkit
+          command: |
+            source $HOME/.bashrc
+            conda activate ./conda_base
+            BASE=`pwd -P`/seqkit
+            export PATH=`pwd -P`/conda_base/go/bin:$PATH
+            export GOPATH=`pwd -P`/conda_base/go.pkgs
+            export GOROOT=`pwd -P`/conda_base/go
+            export GOOS="linux" GOARCH="amd64"
+            PKG_NAME=seqkit-bsipos
+            cd $GOPATH/src/github.com/shenwei356/seqkit/seqkit
+            git remote add bsipos https://github.com/bsipos/seqkit.git
+            git pull bsipos master
+            COM=`git rev-parse --short HEAD`
+            VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
+            echo $VER
+            export BUILD_STRING="${COM}"
+            sed "s/const VERSION = .*$/const VERSION = \"${VER}_${BUILD_TAG}\"/" cmd/version.go > version_tmp.go
+            mv version_tmp.go cmd/version.go
+            CGO_ENABLED=0 go build -a -tags netgo
+            mv seqkit $BASE/
+            echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
+            cd $BASE
+            cat meta.yaml.in >> meta.yaml
+            conda-build purge
+            uname -a
+            file seqkit
+            conda-build .
+            #anaconda -t $ANACONDA_TOKEN upload conda-bld/**/${PKG_NAME}-*.tar.bz2
+
+      - run:
+          name: build csvtk
+          command: |
+            source $HOME/.bashrc
+            conda activate ./conda_base
+            BASE=`pwd -P`/csvtk
+            export PATH=`pwd -P`/conda_base/go/bin:$PATH
+            export GOPATH=`pwd -P`/conda_base/go.pkgs
+            export GOROOT=`pwd -P`/conda_base/go
+            export GOOS="linux" GOARCH="amd64"
+            PKG_NAME=seqkit-bsipos
+            cd $GOPATH/src/github.com/shenwei356/csvtk/csvtk
+            git remote add bsipos https://github.com/bsipos/csvtk.git
+            git pull bsipos master
+            COM=`git rev-parse --short HEAD`
+            VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
+            echo $VER
+            export BUILD_STRING="${COM}"
+            sed "s/const VERSION = .*$/const VERSION = \"${VER}_${BUILD_TAG}\"/" cmd/version.go > version_tmp.go
+            mv version_tmp.go cmd/version.go
+            CGO_ENABLED=0 go build -a -tags netgo
+            mv csvtk $BASE/
+            echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
+            cd $BASE
+            cat meta.yaml.in >> meta.yaml
+            conda-build purge
+            uname -a
+            file csvtk
+            conda-build .
+            #anaconda -t $ANACONDA_TOKEN upload conda-bld/**/${PKG_NAME}-*.tar.bz2
+
+
+      #- store_artifacts:
+      #       path: test-reports
+      #       destination: test-reports
