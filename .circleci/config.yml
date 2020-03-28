@@ -89,7 +89,7 @@ jobs:
             conda-build .
             PKG=`find $CONDA_PREFIX/conda-bld -name 'seqkit*.tar.bz2'`
             echo $PKG
-            anaconda -t ${ANACONDA_TOKEN} upload -u bsipos --label main $PKG
+            anaconda -t ${ANACONDA_TOKEN} upload -u bsipos -l main $PKG
 
       - run:
           name: build csvtk
@@ -126,7 +126,7 @@ jobs:
             conda-build .
             PKG=`find $CONDA_PREFIX/conda-bld -name 'csvtk*.tar.bz2'`
             echo $PKG
-            anaconda -t ${ANACONDA_TOKEN} upload -u bsipos --label main $PKG
+            anaconda -t ${ANACONDA_TOKEN} upload -u bsipos -l main $PKG
 
 
       #- store_artifacts:
