@@ -83,13 +83,10 @@ jobs:
             uname -a
             file seqkit
             conda-build purge
-            conda config --add channels bsipos
-            conda config --set conda_build.anaconda_token ${ANACONDA_TOKEN} || true
-            conda config --set anaconda_upload no
             conda-build .
             PKG=`find $CONDA_PREFIX/conda-bld -name 'seqkit*.tar.bz2'`
             echo $PKG
-            anaconda -t ${ANACONDA_TOKEN} upload -u bsipos -l main $PKG
+            anaconda -t ${ANACONDA_TOKEN} upload --force --register -u bsipos -l main $PKG
 
       - run:
           name: build csvtk
@@ -120,8 +117,6 @@ jobs:
             uname -a
             file csvtk
             conda-build purge
-            conda config --add channels bsipos
-            conda config --set conda_build.anaconda_token ${ANACONDA_TOKEN} || true
             conda config --set anaconda_upload no
             conda-build .
             PKG=`find $CONDA_PREFIX/conda-bld -name 'csvtk*.tar.bz2'`
