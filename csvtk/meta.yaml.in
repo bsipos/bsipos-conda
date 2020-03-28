@@ -17,7 +17,7 @@ test:
 
 about:
   home: https://github.com/bsipos/csvtk
-  summary: Cross-platform and ultrafast toolkit for FASTA/Q file manipulation
+  summary: A cross-platform, efficient, practical CSV/TSV toolkit
   license: MIT
 
 extra:
