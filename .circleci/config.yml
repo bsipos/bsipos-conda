@@ -82,11 +82,14 @@ jobs:
             cat meta.yaml.in >> meta.yaml
             uname -a
             file seqkit
+            conda-build purge
             conda config --add channels bsipos
             conda config --set conda_build.anaconda_token ${ANACONDA_TOKEN} || true
-            conda config --set anaconda_upload yes
-            conda-build purge
+            conda config --set anaconda_upload no
             conda-build .
+            PKG=`find $CONDA_PREFIX/conda-bld/linux-64/ -name 'seqkit-*.tar.bz2'`
+            echo $PKG
+            anaconda -t ${ANACONDA_TOKEN} upload --label main $PKG
 
       - run:
           name: build csvtk
@@ -116,11 +119,14 @@ jobs:
             cat meta.yaml.in >> meta.yaml
             uname -a
             file csvtk
+            conda-build purge
             conda config --add channels bsipos
             conda config --set conda_build.anaconda_token ${ANACONDA_TOKEN} || true
-            conda config --set anaconda_upload yes
-            conda-build purge
+            conda config --set anaconda_upload no
             conda-build .
+            PKG=`find $CONDA_PREFIX/conda-bld/linux-64/ -name 'csvtk-*.tar.bz2'`
+            echo $PKG
+            anaconda -t ${ANACONDA_TOKEN} upload --label main $PKG
 
 
       #- store_artifacts:
