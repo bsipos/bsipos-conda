@@ -81,14 +81,13 @@ jobs:
             echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
             cd $BASE
             cat meta.yaml.in >> meta.yaml
-            conda-build purge
             uname -a
             file seqkit
+            conda config --add channels bsipos
+            conda config --set anaconda_token ${ANACONDA_TOKEN}
+            conda config --set anaconda_upload yes
             conda-build purge
             conda-build .
-            PKG=`find $CONDA_PREFIX/conda-bld -name '*.tar.bz2'`
-            echo $PKG
-            anaconda -t ${ANACONDA_TOKEN} upload -u bsipos $PKG
 
       - run:
           name: build csvtk
@@ -116,13 +115,13 @@ jobs:
             echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
             cd $BASE
             cat meta.yaml.in >> meta.yaml
-            conda-build purge
             uname -a
             file csvtk
+            conda config --add channels bsipos
+            conda config --set anaconda_token ${ANACONDA_TOKEN}
+            conda config --set anaconda_upload yes
             conda-build purge
             conda-build .
-            PKG=`find $CONDA_PREFIX/conda-bld -name '*.tar.bz2'`
-            anaconda -t ${ANACONDA_TOKEN} upload -u bsipos $PKG
 
 
       #- store_artifacts:
