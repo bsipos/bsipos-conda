@@ -87,7 +87,7 @@ jobs:
             conda config --set conda_build.anaconda_token ${ANACONDA_TOKEN} || true
             conda config --set anaconda_upload no
             conda-build .
-            PKG=`find $CONDA_PREFIX/conda-bld/linux-64/ -name 'seqkit-*.tar.bz2'`
+            PKG=`find $CONDA_PREFIX/conda-bld -name 'seqkit-*.tar.bz2'`
             echo $PKG
             anaconda -t ${ANACONDA_TOKEN} upload --label main $PKG
 
@@ -124,7 +124,7 @@ jobs:
             conda config --set conda_build.anaconda_token ${ANACONDA_TOKEN} || true
             conda config --set anaconda_upload no
             conda-build .
-            PKG=`find $CONDA_PREFIX/conda-bld/linux-64/ -name 'csvtk-*.tar.bz2'`
+            PKG=`find $CONDA_PREFIX/conda-bld -name 'csvtk-*.tar.bz2'`
             echo $PKG
             anaconda -t ${ANACONDA_TOKEN} upload --label main $PKG
 
