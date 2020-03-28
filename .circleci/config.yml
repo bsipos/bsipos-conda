@@ -84,7 +84,7 @@ jobs:
             uname -a
             file seqkit
             conda config --add channels bsipos
-            conda config --set anaconda_token ${ANACONDA_TOKEN}
+            conda config --set conda_build.anaconda_token ${ANACONDA_TOKEN} || true
             conda config --set anaconda_upload yes
             conda-build purge
             conda-build .
@@ -118,7 +118,7 @@ jobs:
             uname -a
             file csvtk
             conda config --add channels bsipos
-            conda config --set anaconda_token ${ANACONDA_TOKEN}
+            conda config --set conda_build.anaconda_token ${ANACONDA_TOKEN} || true
             conda config --set anaconda_upload yes
             conda-build purge
             conda-build .
