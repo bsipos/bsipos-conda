@@ -84,7 +84,7 @@ jobs:
             uname -a
             file seqkit
             conda-build .
-            anaconda upload -t ${ANACONDA_TOKEN} $CONDA_PREFIX/conda-bld/**/${PKG_NAME}-*.tar.bz2
+            anaconda -t ${ANACONDA_TOKEN} upload -u bsipos $CONDA_PREFIX/conda-bld/**/${PKG_NAME}-*.tar.bz2
 
       - run:
           name: build csvtk
@@ -115,7 +115,7 @@ jobs:
             uname -a
             file csvtk
             conda-build .
-            anaconda upload -t ${ANACONDA_TOKEN} $CONDA_PREFIX/conda-bld/**/${PKG_NAME}-*.tar.bz2
+            anaconda -t ${ANACONDA_TOKEN} upload -u bsipos $CONDA_PREFIX/conda-bld/**/${PKG_NAME}-*.tar.bz2
 
 
       #- store_artifacts:
