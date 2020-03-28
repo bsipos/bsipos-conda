@@ -48,7 +48,6 @@ jobs:
             go get -u  github.com/shenwei356/seqkit/seqkit
             go get -u  github.com/shenwei356/csvtk/csvtk
             echo $(conda list --export ; go version | openssl dgst -sha256 -)  > conda_base/CACHE_KEY1
-            echo `date` >> conda_base/CACHE_KEY1
 
       - save_cache:
             paths:
