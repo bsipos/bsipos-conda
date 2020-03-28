@@ -61,6 +61,7 @@ jobs:
             source $HOME/.bashrc
             conda activate ./conda_base
             BASE=`pwd -P`/seqkit
+            PKG_NAME=seqkit
             export PATH=`pwd -P`/conda_base/go/bin:$PATH
             export GOPATH=`pwd -P`/conda_base/go.pkgs
             export GOROOT=`pwd -P`/conda_base/go
@@ -84,13 +85,14 @@ jobs:
             uname -a
             file seqkit
             conda-build .
-            anaconda -t ${ANACONDA_TOKEN} upload -u bsipos $CONDA_PREFIX/conda-bld/**/${PKG_NAME}-*.tar.bz2
+            anaconda -t ${ANACONDA_TOKEN} upload -u bsipos $CONDA_PREFIX/conda-bld/*/${PKG_NAME}-*.tar.bz2
 
       - run:
           name: build csvtk
           command: |
             source $HOME/.bashrc
             conda activate ./conda_base
+            PKG_NAME=csvtk
             BASE=`pwd -P`/csvtk
             export PATH=`pwd -P`/conda_base/go/bin:$PATH
             export GOPATH=`pwd -P`/conda_base/go.pkgs
@@ -115,7 +117,7 @@ jobs:
             uname -a
             file csvtk
             conda-build .
-            anaconda -t ${ANACONDA_TOKEN} upload -u bsipos $CONDA_PREFIX/conda-bld/**/${PKG_NAME}-*.tar.bz2
+            anaconda -t ${ANACONDA_TOKEN} upload -u bsipos $CONDA_PREFIX/conda-bld/*/${PKG_NAME}-*.tar.bz2
 
 
       #- store_artifacts:
