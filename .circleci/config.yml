@@ -85,7 +85,7 @@ jobs:
             uname -a
             file seqkit
             conda-build .
-            PKG=`find $CONDA_PREFIX/conda-bld -name '${PKG_NAME}-*.tar.bz2'`
+            PKG=`find $CONDA_PREFIX/conda-bld -name "${PKG_NAME}-*.tar.bz2"`
             anaconda -t ${ANACONDA_TOKEN} upload -u bsipos $PKG
 
       - run:
@@ -118,7 +118,7 @@ jobs:
             uname -a
             file csvtk
             conda-build .
-            PKG=`find $CONDA_PREFIX/conda-bld -name '${PKG_NAME}-*.tar.bz2'`
+            PKG=`find $CONDA_PREFIX/conda-bld -name "${PKG_NAME}-*.tar.bz2"`
             anaconda -t ${ANACONDA_TOKEN} upload -u bsipos $PKG
 
 
