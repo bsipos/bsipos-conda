@@ -1,9 +1,9 @@
 .PHONY: all
 
-DATE=$(shell date);
+DATE=$(shell date)
 
 all:
-	echo $(DATE) >> UPDATES.md;
+	echo "$(DATE)" >> UPDATES.md;
 	git add UPDATES.md;
 	git commit -m "$(DATE)";
 	git push;
