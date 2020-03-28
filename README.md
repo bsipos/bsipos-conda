@@ -8,5 +8,5 @@ Automating conda package uploads for [https://anaconda.org/bsipos](https://anaco
 Packages built
 --------------
 
-- [bsipos/seqkit](https://github.com/bsipos/seqkit) -> [https://anaconda.org/bsipos/seqkit_bsipos](anaconda.org/bsipos/seqkit_bsipos)
-- [bsipos/csvtk](https://github.com/bsipos/csvtk) -> [https://anaconda.org/bsipos/csvtk_bsipos](anaconda.org/bsipos/csvtk_bsipos)
+- [bsipos/seqkit](https://github.com/bsipos/seqkit) -> [anaconda.org/bsipos/seqkit_bsipos](https://anaconda.org/bsipos/seqkit_bsipos)
+- [bsipos/csvtk](https://github.com/bsipos/csvtk) -> [anaconda.org/bsipos/csvtk_bsipos](https://anaconda.org/bsipos/csvtk_bsipos)
