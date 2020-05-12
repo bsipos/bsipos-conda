@@ -75,6 +75,7 @@ jobs:
             export BUILD_STRING="${COM}"
             sed "s/const VERSION = .*$/const VERSION = \"${VER}_${BUILD_STRING}\"/" cmd/version.go > version_tmp.go
             mv version_tmp.go cmd/version.go
+            go get ./...
             CGO_ENABLED=0 go build -a -tags netgo
             mv seqkit $BASE/
             echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
@@ -109,6 +110,7 @@ jobs:
             export BUILD_STRING="${COM}"
             sed "s/const VERSION = .*$/const VERSION = \"${VER}_${BUILD_STRING}\"/" cmd/version.go > version_tmp.go
             mv version_tmp.go cmd/version.go
+            go get ./...
             CGO_ENABLED=0 go build -a -tags netgo
             mv csvtk $BASE/
             echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
