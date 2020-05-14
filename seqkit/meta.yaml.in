@@ -13,7 +13,7 @@ build:
 
 test:
   commands:
-    - LX=`uname -a | grep Linux`; if [[ $LX ]]; then seqkit version; else true; fi
+    - (LX=`uname -a | grep Linux | echo $?`; if [[ $LX -eq "0" ]]; then seqkit version; else true; fi)
 
 about:
   home: https://github.com/bsipos/seqkit
