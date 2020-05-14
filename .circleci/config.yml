@@ -48,7 +48,7 @@ jobs:
             go get -u  github.com/shenwei356/seqkit/seqkit
             go get -u  github.com/shenwei356/csvtk/csvtk
             conda-build purge
-            echo $(conda list --export ; go version | openssl dgst -sha256 -)  > conda_base/CACHE_KEY1
+            echo $(`date  +"%F"`; go version | openssl dgst -sha256 -)  > conda_base/CACHE_KEY1
 
       - save_cache:
             paths:
@@ -100,7 +100,7 @@ jobs:
             export GOOS="darwin" GOARCH="amd64"
             PKG_NAME=seqkit-bsipos
             cd $GOPATH/src/github.com/shenwei356/seqkit/seqkit
-            git remote add bsipos https://github.com/bsipos/seqkit.git
+            #git remote add bsipos https://github.com/bsipos/seqkit.git
             git pull bsipos master
             COM=`git rev-parse --short HEAD`
             VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
@@ -174,7 +174,7 @@ jobs:
             export GOOS="darwin" GOARCH="amd64"
             PKG_NAME=seqkit-bsipos
             cd $GOPATH/src/github.com/shenwei356/csvtk/csvtk
-            git remote add bsipos https://github.com/bsipos/csvtk.git
+            #git remote add bsipos https://github.com/bsipos/csvtk.git
             git pull bsipos master
             COM=`git rev-parse --short HEAD`
             VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
