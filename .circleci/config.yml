@@ -29,6 +29,7 @@ jobs:
             source $HOME/.bashrc
             git config --global user.email "sbotond"
             git config --global user.name "Botond Sipos"
+            git config --global core.editor "nano"
             conda config --add channels bioconda
             conda config --add channels conda-forge
             #rm -fr conda_base
