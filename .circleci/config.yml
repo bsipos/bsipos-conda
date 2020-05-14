@@ -20,7 +20,7 @@ jobs:
           keys:
             #- v1-dependencies-{{ checksum "conda_base.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - cache-v2-
+            - cache-v2-xxx
 
       - run:
           name: install dependencies
