@@ -55,7 +55,7 @@ jobs:
             key: cache-v2-{{ checksum "conda_base/CACHE_KEY1" }}
 
       - run:
-          name: build seqkit
+          name: build seqkit (linux)
           command: |
             source $HOME/.bashrc
             conda activate ./conda_base
@@ -79,6 +79,7 @@ jobs:
             CGO_ENABLED=0 go build -a -tags netgo
             mv seqkit $BASE/
             echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
+            echo "target-platform: linux_amd64" > $BASE/meta.yaml
             cd $BASE
             cat meta.yaml.in >> meta.yaml
             uname -a
@@ -88,6 +89,43 @@ jobs:
             PKG=`find $CONDA_PREFIX/conda-bld -name 'seqkit*.tar.bz2'`
             echo $PKG
             anaconda -t ${ANACONDA_TOKEN} upload --force --register -u bsipos -l main $PKG
+
+      - run:
+          name: build seqkit (MacOS)
+          command: |
+            source $HOME/.bashrc
+            conda activate ./conda_base
+            BASE=`pwd -P`/seqkit
+            PKG_NAME=seqkit
+            export PATH=`pwd -P`/conda_base/go/bin:$PATH
+            export GOPATH=`pwd -P`/conda_base/go.pkgs
+            export GOROOT=`pwd -P`/conda_base/go
+            export GOOS="darwin" GOARCH="amd64"
+            PKG_NAME=seqkit-bsipos
+            cd $GOPATH/src/github.com/shenwei356/seqkit/seqkit
+            git remote add bsipos https://github.com/bsipos/seqkit.git
+            git pull bsipos master
+            COM=`git rev-parse --short HEAD`
+            VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
+            echo $VER
+            export BUILD_STRING="${COM}"
+            sed "s/const VERSION = .*$/const VERSION = \"${VER}_${BUILD_STRING}\"/" cmd/version.go > version_tmp.go
+            mv version_tmp.go cmd/version.go
+            go get ./...
+            CGO_ENABLED=0 go build -a -tags netgo
+            mv seqkit $BASE/
+            echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
+            echo "target-platform: osx-64" > $BASE/meta.yaml
+            cd $BASE
+            cat meta.yaml.in >> meta.yaml
+            uname -a
+            file seqkit
+            conda-build purge
+            conda-build .
+            PKG=`find $CONDA_PREFIX/conda-bld -name 'seqkit*.tar.bz2'`
+            echo $PKG
+            anaconda -t ${ANACONDA_TOKEN} upload --force --register -u bsipos -l main $PKG
+
 
       - run:
           name: build csvtk

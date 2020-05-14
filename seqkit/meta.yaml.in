@@ -11,8 +11,6 @@ build:
   string: {{ environ.get('BUILD_STRING', '') }}
   skip: False
 
-target-platform: linux_amd64
-
 test:
   commands:
     - seqkit version
