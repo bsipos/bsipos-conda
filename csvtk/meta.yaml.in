@@ -13,7 +13,7 @@ build:
 
 test:
   commands:
-    - csvtk version
+    - LX=`uname -a | grep Linux`; if [[ $LX ]]; then csvtk version; else true; fi
 
 about:
   home: https://github.com/bsipos/csvtk
