@@ -92,7 +92,7 @@ jobs:
             uname -a
             file seqkit
             export PKG_RES="pkg_res"
-            conda-build --output-folder $PKG_RES/linux-64 .
+            conda-build --output-folder $PKG_RES .
 
       - run:
           name: build seqkit (MacOS)
@@ -127,14 +127,15 @@ jobs:
             mkdir pkg_tmp
             export PKG_RES="pkg_res"
             conda-build --output-folder pkg_tmp .
-            conda convert -p osx-64 -o $PKG_RES/osx-64 `find -name pkg_tmp/*.gz`
+            conda convert -p osx-64 -o $PKG_RES `find -name pkg_tmp/*.gz`
 
       - run:
           name: upload seqkit
           command: |
             source $HOME/.bashrc
             conda activate ./conda_base
-            PKGS=`find $CONDA_PREFIX/conda-bld -name 'seqkit*.tar.bz2'`
+            export PKG_RES="pkg_res"
+            PKGS=`find $PKG_RES -name 'seqkit*.tar.bz2'`
             for PKG in $PKGS
             do 
             echo $PKG
