@@ -9,7 +9,7 @@ source:
 build:
   number: 0
   string: {{ environ.get('BUILD_STRING', '') }}
-  target-platform: {{ environ.get('MY_ARCH', '') }}
+  target_platform: {{ environ.get('MY_ARCH', '') }}
   skip: False
 
 test:

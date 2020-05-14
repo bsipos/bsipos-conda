@@ -154,7 +154,7 @@ jobs:
             CGO_ENABLED=0 go build -a -tags netgo
             mv csvtk $BASE/
             echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
-            echo "target-platform: linux_amd64" >> $BASE/meta.yaml
+            export MY_ARCH="linux-64"
             cd $BASE
             cat meta.yaml.in >> meta.yaml
             uname -a
@@ -188,7 +188,7 @@ jobs:
             CGO_ENABLED=0 go build -a -tags netgo
             mv csvtk $BASE/
             echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
-            echo "target-platform: osx-64" >> $BASE/meta.yaml
+            export MY_ARCH="osx-64"
             cd $BASE
             cat meta.yaml.in >> meta.yaml
             uname -a
