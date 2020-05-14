@@ -92,7 +92,7 @@ jobs:
             uname -a
             file seqkit
             export PKG_RES="pkg_res"
-            conda-build --output-directory $PKG_RES/linux-64 .
+            conda-build --output-folder $PKG_RES/linux-64 .
 
       - run:
           name: build seqkit (MacOS)
@@ -126,7 +126,7 @@ jobs:
             file seqkit
             mkdir pkg_tmp
             export PKG_RES="pkg_res"
-            conda-build --output-directory pkg_tmp .
+            conda-build --output-folder pkg_tmp .
             conda convert -p osx-64 -o $PKG_RES/osx-64 `find -name pkg_tmp/*.gz`
 
       - run:
