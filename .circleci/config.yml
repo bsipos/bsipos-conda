@@ -127,7 +127,7 @@ jobs:
             mkdir pkg_tmp
             export PKG_RES="pkg_res"
             conda-build --output-folder pkg_tmp .
-            conda convert -p osx-64 -o $PKG_RES `find -name pkg_tmp/*.gz`
+            conda convert -p osx-64 -o $PKG_RES `find -name pkg_tmp/ -name '*.gz'`
 
       - run:
           name: upload seqkit
