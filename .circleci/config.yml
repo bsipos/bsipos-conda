@@ -48,7 +48,7 @@ jobs:
             go get -u  github.com/shenwei356/seqkit/seqkit
             go get -u  github.com/shenwei356/csvtk/csvtk
             conda-build purge
-            echo $(`date  +"%F"`; go version | openssl dgst -sha256 -)  > conda_base/CACHE_KEY1
+            echo $(`date  +"%F"` | openssl dgst -sha256 -)  > conda_base/CACHE_KEY1
 
       - save_cache:
             paths:
