@@ -54,7 +54,7 @@ jobs:
             export PKG_RES="pkg_res"
             rm -fr $PKG_RES
             mkdir -p $PKG_RES/linux-64 $PKG_RES/osx-64
-            echo $(echo `date  +"%F"` | openssl dgst -sha256 -)  > conda_base/CACHE_KEY1
+            echo $(echo `date` | openssl dgst -sha256 -)  > conda_base/CACHE_KEY1
 
       - save_cache:
             paths:
