@@ -80,7 +80,7 @@ jobs:
             CGO_ENABLED=0 go build -a -tags netgo
             mv seqkit $BASE/
             echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
-            export MY_ARCH="linux-64"
+            export MY_ARCH="linux_amd64"
             cd $BASE
             cat meta.yaml.in >> meta.yaml
             uname -a
@@ -112,7 +112,7 @@ jobs:
             CGO_ENABLED=0 go build -a -tags netgo
             mv seqkit $BASE/
             echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
-            export MY_ARCH="osx-64"
+            export MY_ARCH="osx_amd64"
             cd $BASE
             cat meta.yaml.in >> meta.yaml
             uname -a
@@ -154,7 +154,7 @@ jobs:
             CGO_ENABLED=0 go build -a -tags netgo
             mv csvtk $BASE/
             echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
-            export MY_ARCH="linux-64"
+            export MY_ARCH="linux_amd64"
             cd $BASE
             cat meta.yaml.in >> meta.yaml
             uname -a
@@ -188,7 +188,7 @@ jobs:
             CGO_ENABLED=0 go build -a -tags netgo
             mv csvtk $BASE/
             echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
-            export MY_ARCH="osx-64"
+            export MY_ARCH="osx_amd64"
             cd $BASE
             cat meta.yaml.in >> meta.yaml
             uname -a
