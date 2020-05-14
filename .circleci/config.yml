@@ -124,7 +124,7 @@ jobs:
             cat meta.yaml.in >> meta.yaml
             uname -a
             file seqkit
-            mkdir pkg_tmp
+            mkdir -p pkg_tmp/linux-64 pkg_tmp/osx-64
             export PKG_RES="pkg_res"
             conda-build --output-folder pkg_tmp .
             conda convert -p osx-64 -o $PKG_RES `find -name pkg_tmp/ -name '*.gz'`
