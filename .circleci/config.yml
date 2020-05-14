@@ -48,6 +48,9 @@ jobs:
             go get -u  github.com/shenwei356/seqkit/seqkit
             go get -u  github.com/shenwei356/csvtk/csvtk
             conda-build purge
+            export PKG_RES="pkg_res"
+            rm -fr $PKG_RES
+            mkdir -p $PKG_RES/linux-64 $PKG_RES/osx-64
             echo $(echo `date  +"%F"` | openssl dgst -sha256 -)  > conda_base/CACHE_KEY1
 
       - save_cache:
@@ -85,7 +88,8 @@ jobs:
             cat meta.yaml.in >> meta.yaml
             uname -a
             file seqkit
-            conda-build .
+            export PKG_RES="pkg_res"
+            conda-build --output-directory $PKG_RES/linux-64 .
 
       - run:
           name: build seqkit (MacOS)
@@ -117,16 +121,22 @@ jobs:
             cat meta.yaml.in >> meta.yaml
             uname -a
             file seqkit
-            conda-build .
+            mkdir pkg_tmp
+            export PKG_RES="pkg_res"
+            conda-build --output-directory pkg_tmp .
+            conda convert -p osx-64 -o $PKG_RES/osx-64 `find -name pkg_tmp/*.gz`
 
       - run:
           name: upload seqkit
           command: |
             source $HOME/.bashrc
             conda activate ./conda_base
-            PKG=`find $CONDA_PREFIX/conda-bld -name 'seqkit*.tar.bz2'`
+            PKGS=`find $CONDA_PREFIX/conda-bld -name 'seqkit*.tar.bz2'`
+            for PKG in $PKGS
+            do 
             echo $PKG
             anaconda -t ${ANACONDA_TOKEN} upload --force --register -u bsipos -l main $PKG
+            done
 
 
       - run:
@@ -160,7 +170,8 @@ jobs:
             uname -a
             file csvtk
             conda config --set anaconda_upload no
-            conda-build .
+            mkdir -p pkg_build/linux-64
+            conda-build --output-folder .
 
 
       - run:
