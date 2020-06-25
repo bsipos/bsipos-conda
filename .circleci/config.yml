@@ -16,11 +16,11 @@ jobs:
       - checkout
 
       # Download and cache dependencies
-      - restore_cache:
-          keys:
+      #- restore_cache:
+        #    keys:
             #- v1-dependencies-{{ checksum "conda_base.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - cache-v2-xxx
+            #   - cache-v2-xxx
 
       - run:
           name: install dependencies
