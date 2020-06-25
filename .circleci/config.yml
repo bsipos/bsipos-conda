@@ -78,7 +78,6 @@ jobs:
             git reset --hard origin/dev
             COM=`git rev-parse --short HEAD`
             cd $BASE
-            VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
             echo $VER
             export BUILD_STRING="${COM}"
             echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
