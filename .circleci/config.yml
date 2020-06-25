@@ -16,11 +16,11 @@ jobs:
       - checkout
 
       # Download and cache dependencies
-      #- restore_cache:
-        #    keys:
+      - restore_cache:
+            keys:
             #- v1-dependencies-{{ checksum "conda_base.txt" }}
             # fallback to using the latest cache if no exact match is found
-            #   - cache-v2-xxx
+            - cache-v2-
 
       - run:
           name: install dependencies
@@ -130,7 +130,7 @@ jobs:
             export PKG_RES="pkg_res"
             conda-build --output-folder pkg_tmp .
             ls -lR pkg_tmp
-            TG=`find pkg_tmp/ -name '*.gz'`
+            TG=`find pkg_tmp/ -name 'seqkit*.bz2'`
             echo $TG
             conda convert -p osx-64 -o $PKG_RES $TG
 
