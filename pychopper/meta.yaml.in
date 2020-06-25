@@ -19,7 +19,7 @@ requirements:
     - python >=3
     - python-edlib
     - parasail-python
-    - hmmer >=3.2
+    - hmmer >=3.3
     - tqdm
     - matplotlib-base
     - seaborn
@@ -34,7 +34,7 @@ about:
   home: https://github.com/nanoporetech/pychopper
   license: MPL2
   summary: A tool to identify, orient and rescue full length cDNA reads from nanopore data.
-  license_file: LICENSE.md
+  license_file: pychopper/LICENSE.md
 
 extra:
   skip-lints:
