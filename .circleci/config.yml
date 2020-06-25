@@ -79,7 +79,7 @@ jobs:
             git reset --hard origin/dev
             COM=`git rev-parse --short HEAD`
             cd $BASE
-            VER=0.1
+            VER=$(grep 'version=' pychopper/setup.py | sed -r 's/^.*= \'(.+)\'$/\1/')
             export BUILD_STRING="${COM}"
             echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
             cat meta.yaml.in >> meta.yaml

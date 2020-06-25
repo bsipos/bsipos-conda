@@ -9,6 +9,7 @@ source:
 build:
   noarch: python
   number: 0
+  string: {{ environ.get('BUILD_STRING', '') }}
   script: {{ PYTHON }} -m pip install pychopper/ --no-deps --ignore-installed -vv
 
 requirements:
