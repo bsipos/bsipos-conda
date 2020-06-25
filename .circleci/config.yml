@@ -181,7 +181,8 @@ jobs:
             file csvtk
             conda config --set anaconda_upload no
             mkdir -p pkg_build/linux-64
-            conda-build --output-folder pkg_tmp .
+            export PKG_RES="pkg_res"
+            conda-build --output-folder $PKG_RES .
 
 
       - run:
@@ -216,6 +217,7 @@ jobs:
             uname -a
             file csvtk
             conda config --set anaconda_upload no
+            export PKG_RES="pkg_res"
             conda-build --output-folder pkg_tmp .
             ls -lR pkg_tmp
             TG=`find pkg_tmp/ -name 'csvtk*.bz2'`
