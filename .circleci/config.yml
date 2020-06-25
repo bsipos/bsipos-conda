@@ -67,7 +67,7 @@ jobs:
             source $HOME/.bashrc
             conda activate ./conda_base
             PKG_NAME=pychopper_dev
-            BASE=`pwd -P`/$PKG_NAME
+            BASE=`pwd -P`/pychopper
             export PATH=`pwd -P`/conda_base/go/bin:$PATH
             export GOPATH=`pwd -P`/conda_base/go.pkgs
             export GOROOT=`pwd -P`/conda_base/go
