@@ -39,7 +39,7 @@ jobs:
             conda install -y -q anaconda anaconda-client conda-build cmake make gcc_linux-64 gxx_linux-64 \
             gfortran_linux-64 openssl conda-verify patchelf
             conda update --all -y -q
-            GO_TAR=go1.14.1.linux-amd64.tar.gz
+            GO_TAR=go1.14.4.linux-amd64.tar.gz
             export GOOS="linux" GOARCH="amd64"
             export GOROOT=`pwd -P`/conda_base/go
             GO_URL="https://dl.google.com/go/$GO_TAR"
@@ -75,7 +75,7 @@ jobs:
             PKG_NAME=seqkit-bsipos
             cd $GOPATH/src/github.com/shenwei356/seqkit/seqkit
             git remote add bsipos https://github.com/bsipos/seqkit.git
-            git pull bsipos master
+            git pull --force bsipos master
             COM=`git rev-parse --short HEAD`
             VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
             echo $VER
@@ -108,7 +108,7 @@ jobs:
             PKG_NAME=seqkit-bsipos
             cd $GOPATH/src/github.com/shenwei356/seqkit/seqkit
             #git remote add bsipos https://github.com/bsipos/seqkit.git
-            git pull bsipos master
+            git pull --force bsipos master
             COM=`git rev-parse --short HEAD`
             VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
             echo $VER
@@ -160,7 +160,7 @@ jobs:
             PKG_NAME=seqkit-bsipos
             cd $GOPATH/src/github.com/shenwei356/csvtk/csvtk
             git remote add bsipos https://github.com/bsipos/csvtk.git
-            git pull bsipos master
+            git pull --force bsipos master
             COM=`git rev-parse --short HEAD`
             VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
             echo $VER
@@ -194,8 +194,8 @@ jobs:
             export GOOS="darwin" GOARCH="amd64"
             PKG_NAME=seqkit-bsipos
             cd $GOPATH/src/github.com/shenwei356/csvtk/csvtk
-            #git remote add bsipos https://github.com/bsipos/csvtk.git
-            git pull bsipos master
+            git remote add bsipos https://github.com/bsipos/csvtk.git
+            git pull --force bsipos master
             COM=`git rev-parse --short HEAD`
             VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
             echo $VER
