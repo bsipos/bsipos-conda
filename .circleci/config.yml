@@ -62,6 +62,34 @@ jobs:
             key: cache-v2-{{ checksum "conda_base/CACHE_KEY1" }}
 
       - run:
+          name: build pychopper_dev (noarch)
+          command: |
+            source $HOME/.bashrc
+            conda activate ./conda_base
+            PKG_NAME=pychopper_dev
+            BASE=`pwd -P`/$PKG_NAME
+            export PATH=`pwd -P`/conda_base/go/bin:$PATH
+            export GOPATH=`pwd -P`/conda_base/go.pkgs
+            export GOROOT=`pwd -P`/conda_base/go
+            export GOOS="linux" GOARCH="amd64"
+            cd pychopper
+            git clone https://github.com/nanoporetech/pychopper.git
+            cd pychopper
+            git reset --hard origin/dev
+            COM=`git rev-parse --short HEAD`
+            cd $BASE
+            VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
+            echo $VER
+            export BUILD_STRING="${COM}"
+            echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
+            cat meta.yaml.in >> meta.yaml
+            uname -a
+            conda config --set anaconda_upload no
+            export PKG_RES="pkg_res"
+            conda-build --output-folder $PKG_RES .
+
+
+      - run:
           name: build seqkit (linux)
           command: |
             source $HOME/.bashrc
