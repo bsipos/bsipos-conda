@@ -16,11 +16,11 @@ jobs:
       - checkout
 
       # Download and cache dependencies
-      - restore_cache:
-            keys:
+      #- restore_cache:
+        #     keys:
             #- v1-dependencies-{{ checksum "conda_base.txt" }}
             # fallback to using the latest cache if no exact match is found
-            - cache-v2-
+            #   - cache-v2-
 
       - run:
           name: install dependencies
@@ -94,7 +94,6 @@ jobs:
             file seqkit
             export PKG_RES="pkg_res"
             conda-build --output-folder $PKG_RES .
-            ls -lR $PKG_RES
 
       - run:
           name: build seqkit (MacOS)
@@ -130,7 +129,6 @@ jobs:
             mkdir -p pkg_tmp/linux-64 pkg_tmp/osx-64
             export PKG_RES="pkg_res"
             conda-build --output-folder pkg_tmp .
-            ls -lR pkg_tmp
             TG=`find pkg_tmp/ -name 'seqkit*.bz*'`
             echo $TG
             conda convert -p osx-64 -o $PKG_RES $TG
@@ -142,7 +140,7 @@ jobs:
             conda activate ./conda_base
             export PKG_RES="pkg_res"
             ls -lR $PKG_RES
-            PKGS=`find $PKG_RES -name 'seqkit*.tar.*'`
+            PKGS=`find $PKG_RES -name 'seqkit*'`
             for PKG in $PKGS
             do 
             echo $PKG
@@ -182,7 +180,6 @@ jobs:
             uname -a
             file csvtk
             conda config --set anaconda_upload no
-            mkdir -p pkg_build/linux-64
             export PKG_RES="pkg_res"
             conda-build --output-folder $PKG_RES .
 
@@ -221,8 +218,7 @@ jobs:
             conda config --set anaconda_upload no
             export PKG_RES="pkg_res"
             conda-build --output-folder pkg_tmp .
-            ls -lR pkg_tmp
-            TG=`find pkg_tmp/ -name 'csvtk*.bz2'`
+            TG=`find pkg_tmp/ -name 'csvtk*'`
             echo $TG
             conda convert -p osx-64 -o $PKG_RES $TG
 
@@ -233,7 +229,7 @@ jobs:
             conda activate ./conda_base
             export PKG_RES="pkg_res"
             ls -lR $PKG_RES
-            PKG=`find $PKG_RES -name 'csvtk*.tar.*'`
+            PKG=`find $PKG_RES -name 'csvtk*'`
             echo $PKG
             anaconda -t ${ANACONDA_TOKEN} upload --force --register -u bsipos -l main $PKG
 
