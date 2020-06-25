@@ -16,11 +16,11 @@ jobs:
       - checkout
 
       # Download and cache dependencies
-      #- restore_cache:
-        #     keys:
+      - restore_cache:
+            keys:
             #- v1-dependencies-{{ checksum "conda_base.txt" }}
             # fallback to using the latest cache if no exact match is found
-            #   - cache-v2-
+            - cache-v2-
 
       - run:
           name: install dependencies
@@ -140,7 +140,7 @@ jobs:
           command: |
             source $HOME/.bashrc
             conda activate ./conda_base
-            export PKG_RES="pkg_res"
+            export PKG_RES="seqkit/pkg_res"
             ls -lR $PKG_RES
             PKGS=`find $PKG_RES -name 'seqkit*bz2'`
             for PKG in $PKGS
@@ -231,7 +231,7 @@ jobs:
           command: |
             source $HOME/.bashrc
             conda activate ./conda_base
-            export PKG_RES="pkg_res"
+            export PKG_RES="csvtk/pkg_res"
             ls -lR $PKG_RES
             PKGS=`find $PKG_RES -name 'csvtk*bz2'`
             echo $PKG
