@@ -197,7 +197,7 @@ jobs:
             export GOOS="darwin" GOARCH="amd64"
             PKG_NAME=seqkit-bsipos
             cd $GOPATH/src/github.com/shenwei356/csvtk/csvtk
-            git remote add bsipos https://github.com/bsipos/csvtk.git
+            #git remote add bsipos https://github.com/bsipos/csvtk.git
             git fetch --all
             git reset --hard bsipos/master
             COM=`git rev-parse --short HEAD`
