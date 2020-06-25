@@ -229,7 +229,8 @@ jobs:
           command: |
             source $HOME/.bashrc
             conda activate ./conda_base
-            PKG=`find $CONDA_PREFIX/conda-bld -name 'csvtk*.tar.bz2'`
+            export PKG_RES="pkg_res"
+            PKG=`find $PKG_RES -name 'csvtk*.tar.bz2'`
             echo $PKG
             anaconda -t ${ANACONDA_TOKEN} upload --force --register -u bsipos -l main $PKG
 
