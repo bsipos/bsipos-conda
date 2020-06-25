@@ -37,7 +37,8 @@ jobs:
             conda activate ./conda_base
             conda update -q -y -n base -c defaults conda
             conda install -y -q anaconda anaconda-client conda-build cmake make gcc_linux-64 gxx_linux-64 \
-            gfortran_linux-64 openssl conda-verify patchelf
+            gfortran_linux-64 openssl conda-verify patchelf\
+            python-edlib parasail-python hmmer tqdm matplotlib-base seaborn six pandas
             conda update --all -y -q
             GO_TAR=go1.14.4.linux-amd64.tar.gz
             export GOOS="linux" GOARCH="amd64"
@@ -78,14 +79,27 @@ jobs:
             git reset --hard origin/dev
             COM=`git rev-parse --short HEAD`
             cd $BASE
-            echo $VER
+            VER=0.1
             export BUILD_STRING="${COM}"
             echo "{% set version = \"$VER\" %}" > $BASE/meta.yaml
             cat meta.yaml.in >> meta.yaml
-            uname -a
             conda config --set anaconda_upload no
             export PKG_RES="pkg_res"
             conda-build --output-folder $PKG_RES .
+
+
+      - run:
+          name: upload pychopper_dev
+          command: |
+            source $HOME/.bashrc
+            conda activate ./conda_base
+            export PKG_RES="pychopper/pkg_res"
+            PKGS=`find $PKG_RES -name 'pychopper*bz2'`
+            for PKG in $PKGS
+            do 
+            echo $PKG
+            anaconda -t ${ANACONDA_TOKEN} upload --force --register -u bsipos -l main $PKG
+            done
 
 
       - run:
