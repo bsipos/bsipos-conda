@@ -129,7 +129,7 @@ jobs:
             mkdir -p pkg_tmp/linux-64 pkg_tmp/osx-64
             export PKG_RES="pkg_res"
             conda-build --output-folder pkg_tmp .
-            TG=`find pkg_tmp/ -name 'seqkit*.bz*'`
+            TG=`find pkg_tmp/ -name 'seqkit*bz2'`
             echo $TG
             conda convert -p osx-64 -o $PKG_RES $TG
 
@@ -140,7 +140,7 @@ jobs:
             conda activate ./conda_base
             export PKG_RES="pkg_res"
             ls -lR $PKG_RES
-            PKGS=`find $PKG_RES -name 'seqkit*'`
+            PKGS=`find $PKG_RES -name 'seqkit*bz2'`
             for PKG in $PKGS
             do 
             echo $PKG
@@ -218,7 +218,7 @@ jobs:
             conda config --set anaconda_upload no
             export PKG_RES="pkg_res"
             conda-build --output-folder pkg_tmp .
-            TG=`find pkg_tmp/ -name 'csvtk*'`
+            TG=`find pkg_tmp/ -name 'csvtk*bz2'`
             echo $TG
             conda convert -p osx-64 -o $PKG_RES $TG
 
@@ -229,7 +229,7 @@ jobs:
             conda activate ./conda_base
             export PKG_RES="pkg_res"
             ls -lR $PKG_RES
-            PKG=`find $PKG_RES -name 'csvtk*'`
+            PKG=`find $PKG_RES -name 'csvtk*bz2'`
             echo $PKG
             anaconda -t ${ANACONDA_TOKEN} upload --force --register -u bsipos -l main $PKG
 
