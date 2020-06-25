@@ -75,7 +75,7 @@ jobs:
             PKG_NAME=seqkit-bsipos
             cd $GOPATH/src/github.com/shenwei356/seqkit/seqkit
             git remote add bsipos https://github.com/bsipos/seqkit.git
-            git pull --force bsipos master
+            git reset --hard bsipos/master
             COM=`git rev-parse --short HEAD`
             VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
             echo $VER
@@ -108,7 +108,7 @@ jobs:
             PKG_NAME=seqkit-bsipos
             cd $GOPATH/src/github.com/shenwei356/seqkit/seqkit
             #git remote add bsipos https://github.com/bsipos/seqkit.git
-            git pull --force bsipos master
+            git reset --hard bsipos/master
             COM=`git rev-parse --short HEAD`
             VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
             echo $VER
@@ -160,7 +160,7 @@ jobs:
             PKG_NAME=seqkit-bsipos
             cd $GOPATH/src/github.com/shenwei356/csvtk/csvtk
             git remote add bsipos https://github.com/bsipos/csvtk.git
-            git pull --force bsipos master
+            git reset --hard bsipos/master
             COM=`git rev-parse --short HEAD`
             VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
             echo $VER
@@ -195,7 +195,7 @@ jobs:
             PKG_NAME=seqkit-bsipos
             cd $GOPATH/src/github.com/shenwei356/csvtk/csvtk
             git remote add bsipos https://github.com/bsipos/csvtk.git
-            git pull --force bsipos master
+            git reset --hard bsipos/master
             COM=`git rev-parse --short HEAD`
             VER=$(grep 'const VERSION' cmd/version.go | sed -r 's/^.*= "(.+)"$/\1/')
             echo $VER
