@@ -94,6 +94,7 @@ jobs:
             file seqkit
             export PKG_RES="pkg_res"
             conda-build --output-folder $PKG_RES .
+            ls -lR $PKG_RES
 
       - run:
           name: build seqkit (MacOS)
@@ -129,7 +130,8 @@ jobs:
             mkdir -p pkg_tmp/linux-64 pkg_tmp/osx-64
             export PKG_RES="pkg_res"
             conda-build --output-folder pkg_tmp .
-            TG=`find pkg_tmp/ -name 'seqkit*.bz2'`
+            ls -lR pkg_tmp
+            TG=`find pkg_tmp/ -name 'seqkit*.bz*'`
             echo $TG
             conda convert -p osx-64 -o $PKG_RES $TG
 
