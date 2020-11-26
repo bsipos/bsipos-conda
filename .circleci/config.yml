@@ -33,7 +33,7 @@ jobs:
             git config --global core.editor ""
             conda config --add channels bioconda
             conda config --add channels conda-forge
-            rm -fr conda_base
+            #rm -fr conda_base
             if [ ! -e ./conda_base ];then conda create -p ./conda_base;fi
             conda activate ./conda_base
             conda update -n base -c defaults conda
