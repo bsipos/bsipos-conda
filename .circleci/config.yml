@@ -37,9 +37,11 @@ jobs:
             if [ ! -e ./conda_base ];then conda create -p ./conda_base;fi
             conda activate ./conda_base
             #conda update -q -y -n base -c defaults conda
-            conda install -y -q anaconda anaconda-client conda-build cmake make gcc_linux-64 gxx_linux-64 \
-            gfortran_linux-64 openssl conda-verify patchelf \
-            python-edlib parasail-python hmmer tqdm matplotlib-base seaborn six pandas
+            conda install -y -q anaconda anaconda-client conda-build 
+            conda install -y -q cmake make gcc_linux-64 gxx_linux-64
+            conda install -y -q gfortran_linux-64 openssl conda-verify patchelf
+            conda install -y -q python-edlib parasail-python hmmer tqdm 
+            conda install -y -q matplotlib-base seaborn six pandas
             #conda update --all -y -q
             GO_TAR=go1.14.4.linux-amd64.tar.gz
             export GOOS="linux" GOARCH="amd64"
