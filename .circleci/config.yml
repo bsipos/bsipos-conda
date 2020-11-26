@@ -11,7 +11,7 @@ jobs:
       # - image: circleci/postgres:9.4
 
     working_directory: ~/bsipos/bsipos-conda
-    resource_class: large
+    resource_class: medium
 
     steps:
       - checkout
