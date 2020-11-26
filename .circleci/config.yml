@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: continuumio/miniconda3
+      - image: continuumio/anaconda3
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -43,7 +43,6 @@ jobs:
             conda install -y gfortran_linux-64 openssl conda-verify patchelf
             conda install -y edlib hmmer tqdm 
             conda install -y matplotlib-base seaborn six pandas
-            conda install -y anaconda
             conda update --all -y -q
             GO_TAR=go1.15.5.linux-amd64.tar.gz
             export GOOS="linux" GOARCH="amd64"
