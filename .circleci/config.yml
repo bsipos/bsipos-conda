@@ -42,7 +42,8 @@ jobs:
             conda install -y gfortran_linux-64 openssl conda-verify patchelf
             conda install -y edlib hmmer tqdm 
             conda install -y matplotlib-base seaborn six pandas
-            #conda update --all -y -q
+            conda install -y anaconda
+            conda update --all -y -q
             GO_TAR=go1.15.5.linux-amd64.tar.gz
             export GOOS="linux" GOARCH="amd64"
             export GOROOT=`pwd -P`/conda_base/go
