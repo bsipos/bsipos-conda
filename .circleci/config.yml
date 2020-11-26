@@ -36,7 +36,7 @@ jobs:
             #rm -fr conda_base
             if [ ! -e ./conda_base ];then conda create -p ./conda_base;fi
             conda activate ./conda_base
-            conda install -y anaconda anaconda-client 
+            conda install -y anaconda-client 
             conda install -y conda-build 
             conda install -y cmake make gcc_linux-64 gxx_linux-64
             conda install -y gfortran_linux-64 openssl conda-verify patchelf
