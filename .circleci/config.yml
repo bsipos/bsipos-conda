@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: continuumio/anaconda3
+      - image: continuumio/miniconda3
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -33,6 +33,7 @@ jobs:
             git config --global core.editor ""
             conda config --add channels bioconda
             conda config --add channels conda-forge
+            conda list anaconda-client
             rm -fr conda_base
             if [ ! -e ./conda_base ];then conda create -p ./conda_base;fi
             conda activate ./conda_base
