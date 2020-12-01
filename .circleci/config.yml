@@ -43,7 +43,7 @@ jobs:
             conda install -q -y edlib hmmer tqdm 
             conda install -q -y matplotlib-base seaborn six pandas
             conda update --all -y -q
-            conda install -y anaconda-client=1.6.7
+            pip install git+https://github.com/Anaconda-Server/anaconda-client
             GO_TAR=go1.15.5.linux-amd64.tar.gz
             export GOOS="linux" GOARCH="amd64"
             export GOROOT=`pwd -P`/conda_base/go
