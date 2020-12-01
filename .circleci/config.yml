@@ -102,7 +102,7 @@ jobs:
             for PKG in $PKGS
             do 
             echo $PKG
-            anaconda -t ${ANACONDA_TOKEN} upload --force --register -u bsipos -l main $PKG || true
+            anaconda -t ${ANACONDA_TOKEN} upload --force --register -u bsipos -l main $PKG
             done
 
 
